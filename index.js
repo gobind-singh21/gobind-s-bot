@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { readdirSync } from "fs";
 import { fileURLToPath, pathToFileURL } from "url";
+import { checkBadWords } from "./bad-words.js";
 
 dotenv.config();
 
@@ -10,7 +11,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
-const CLIENT_ID = process.env.CLIENT_ID;
 
 const client = new Client({
     intents: [
@@ -68,8 +68,10 @@ client.login(DISCORD_TOKEN);
 
 client.on(Events.MessageCreate, (message) => {
     if (message.author.bot) return;
-    // console.log(message);
-    message.reply("A testing reply from bot");
+
+    if (checkBadWords(message.content)) {
+        message.reply("Chup bhsdk saale gaali bakta hai hain!!");
+    }
 });
 
 console.log("Bot started");
