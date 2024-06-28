@@ -4,6 +4,7 @@ import path from "path";
 import { readdirSync } from "fs";
 import { fileURLToPath, pathToFileURL } from "url";
 import { checkBadWords } from "./bad-words.js";
+import { getComeBack } from "./come-backs.js";
 
 dotenv.config();
 
@@ -70,7 +71,7 @@ client.on(Events.MessageCreate, (message) => {
     if (message.author.bot) return;
 
     if (checkBadWords(message.content)) {
-        message.reply("Chup bhsdk saale gaali bakta hai hain!!");
+        message.reply(getComeBack());
     }
 });
 
